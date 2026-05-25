@@ -61,5 +61,10 @@ export function getRandomInRange({
   if (max < min) {
     throw new Error('Max must be bigger than min');
   }
-  return Number((random() * (max - min) + min).toFixed(fraction));
+  const scale = Math.pow(10, fraction);
+  ++max;
+  max *= scale;
+  min *= scale;
+  const floored = Math.floor(random() * (max - min) + min)
+  return Number((floored / scale).toFixed(fraction));
 }
